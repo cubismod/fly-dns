@@ -3,7 +3,7 @@ FROM golang:bullseye
 WORKDIR /opt/app
 
 RUN git clone https://github.com/coredns/coredns && cd coredns \
-    && git checkout 1b95a6042da112c52b859f9b0d18b41772d0143f
+    && git checkout 055b2c31a9cf28321734e5f71613ea080d216cd3
 
 WORKDIR /opt/app/coredns
 

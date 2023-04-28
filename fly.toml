@@ -11,23 +11,14 @@ kill_timeout = 2
   DNS_SERVER_DOMAIN = "cubis-fly-dns"
 
 [[services]]
-  internal_port = 8080
+  internal_port = 53
   processes = ["app"]
-  protocol = "tcp"
+  protocol = "udp"
 
   [services.concurrency]
     type = "connections"
     hard_limit = 200
     soft_limit = 100
-
-  [[services.ports]]
-    handlers = ["http"]
-    port = "8080"
-    force_https = true
-
-  [[services.ports]]
-    handlers = ["tls", "http"]
-    port = "443"
 
   [[services.ports]]
     port = "53"
@@ -36,11 +27,8 @@ kill_timeout = 2
     port = "53"
     protocol = "udp"
 
-  [[services.http_checks]]
-    interval = 2000
-    grace_period = "10s"
-    method = "get"
-    path = "/ready"
-    restart_limit = 4
-    timeout = 2000
-    protocol = "http"
+  [[services.tcp_checks]]
+    grace_period = "1s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"
