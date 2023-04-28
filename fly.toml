@@ -1,0 +1,46 @@
+app = "cubis-fly-dns"
+
+kill_signal = "SIGINT"
+kill_timeout = 2
+
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true
+
+[env]
+  DNS_SERVER_DOMAIN = "cubis-fly-dns"
+
+[[services]]
+  internal_port = 8080
+  processes = ["app"]
+  protocol = "tcp"
+
+  [services.concurrency]
+    type = "connections"
+    hard_limit = 200
+    soft_limit = 100
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = "8080"
+    force_https = true
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = "443"
+
+  [[services.ports]]
+    port = "53"
+  
+  [[services.ports]]
+    port = "53"
+    protocol = "udp"
+
+  [[services.http_checks]]
+    interval = 2000
+    grace_period = "10s"
+    method = "get"
+    path = "/ready"
+    restart_limit = 4
+    timeout = 2000
+    protocol = "http"
