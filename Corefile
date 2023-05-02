@@ -4,8 +4,7 @@
     bind 0.0.0.0
 
     log . {
-        class denial
-        class error
+        class denial error
     }
 
     errors
@@ -13,9 +12,6 @@
     rrl .
 
     blocklist blocklist.txt
-
-    rewrite name substring redd.cubemoji.art 100.106.123.9
-    rewrite name substring router.cubemoji.art 100.86.47.55
 
     cache
 
