@@ -2,8 +2,10 @@ FROM golang:bullseye
 
 WORKDIR /opt/app
 
+ARG coredns_version=v1.11.1
+
 RUN git clone https://github.com/coredns/coredns && cd coredns \
-    && git checkout 055b2c31a9cf28321734e5f71613ea080d216cd3
+    && git checkout tags/$coredns_version -b $coredns_version
 
 WORKDIR /opt/app/coredns
 
